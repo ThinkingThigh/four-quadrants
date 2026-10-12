@@ -1,0 +1,14 @@
+{
+  "name": "four-quadrants",
+  "version": "0.1.0",
+  "private": true,
+  "description": "四象限事项待办工作台 · 本地 Web 应用 · SQLite 存储",
+  "type": "module",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js"
+  }
+}

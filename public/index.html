@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>四象限工作台</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'><rect x='1' y='1' width='7' height='7' rx='1.5' fill='%23E5484D'/><rect x='10' y='1' width='7' height='7' rx='1.5' fill='%235E6AD2'/><rect x='1' y='10' width='7' height='7' rx='1.5' fill='%23D99A2B'/><rect x='10' y='10' width='7' height='7' rx='1.5' fill='%238B8D98'/></svg>">
+</head>
+<body>
+
+<!-- 全屏四象限 -->
+<main class="board" id="board">
+
+  <section class="panel" data-q="1">
+    <header class="phead">
+      <span class="ptitle">重要 · 紧急</span>
+      <span class="pstrat">立即做</span>
+      <span class="pcount"><b class="n">0</b><i class="d">/ 0</i></span>
+    </header>
+    <div class="list" data-q="1"></div>
+  </section>
+
+  <section class="panel" data-q="2">
+    <header class="phead">
+      <span class="ptitle">重要 · 不紧急</span>
+      <span class="pstrat">计划做</span>
+      <span class="pcount"><b class="n">0</b><i class="d">/ 0</i></span>
+    </header>
+    <div class="list" data-q="2"></div>
+  </section>
+
+  <section class="panel" data-q="3">
+    <header class="phead">
+      <span class="ptitle">不重要 · 紧急</span>
+      <span class="pstrat">委托处理</span>
+      <span class="pcount"><b class="n">0</b><i class="d">/ 0</i></span>
+    </header>
+    <div class="list" data-q="3"></div>
+  </section>
+
+  <section class="panel" data-q="4">
+    <header class="phead">
+      <span class="ptitle">不重要 · 不紧急</span>
+      <span class="pstrat">减少做</span>
+      <span class="pcount"><b class="n">0</b><i class="d">/ 0</i></span>
+    </header>
+    <div class="list" data-q="4"></div>
+  </section>
+
+</main>
+
+<!-- 右下角浮动控制台 -->
+<div class="fab-wrap" id="fabWrap">
+
+  <div class="fab-panel" id="fabPanel" role="dialog" aria-label="控制台">
+
+    <!-- 添加任务 -->
+    <section class="fab-sec">
+      <div class="fab-label">添加任务</div>
+      <div class="fab-input">
+        <input type="text" id="newTitle" maxlength="200" placeholder="要做什么？回车创建" autocomplete="off">
+        <button class="fab-submit" id="newSubmit" title="添加" aria-label="添加">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M8 3.5v9M3.5 8h9"/></svg>
+        </button>
+      </div>
+      <div class="qpick" id="qpick">
+        <button data-q="1" class="on"><i style="background:var(--q1)"></i>重要 · 紧急</button>
+        <button data-q="2"><i style="background:var(--q2)"></i>重要 · 不紧急</button>
+        <button data-q="3"><i style="background:var(--q3)"></i>不重要 · 紧急</button>
+        <button data-q="4"><i style="background:var(--q4)"></i>不重要 · 不紧急</button>
+      </div>
+    </section>
+
+    <!-- 显示控制 -->
+    <section class="fab-sec">
+      <div class="fab-label">显示</div>
+      <div class="seg" id="visSeg">
+        <button data-v="all">全部</button>
+        <button data-v="hide_done">隐藏已完成</button>
+        <button data-v="only_done">仅看已完成</button>
+      </div>
+    </section>
+
+    <!-- 回收站 -->
+    <section class="fab-sec">
+      <div class="fab-label">回收站</div>
+      <div class="trash-list" id="trashList">
+        <div class="trash-empty">暂无已删除任务</div>
+      </div>
+    </section>
+
+  </div>
+
+  <button class="fab" id="fabBtn" aria-label="打开控制台" aria-expanded="false">
+    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+      <path d="M10 4v12M4 10h12"/>
+    </svg>
+  </button>
+
+</div>
+
+<!-- 轻提示 -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
