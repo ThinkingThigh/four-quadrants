@@ -3,43 +3,9 @@
 // 用法：pm2 start ecosystem.config.cjs
 // ============================================================
 
-const { existsSync } = require('node:fs');
-const { execSync } = require('node:child_process');
-
-/**
- * 解析要用的 node 解释器。
- * 本项目依赖 node:sqlite（需 Node 22.5+），所以优先使用当前 PATH 里的 node，
- * 若版本不够则尝试 nvm 里已安装的较高版本，最后回退到当前 node。
- *
- * 如需固定某个版本，可直接把 interpreter 写死成绝对路径。
- */
-function resolveNode() {
-  const candidates = [];
-
-  // 1) 当前 PATH 里的 node
-  try {
-    const p = execSync('command -v node', { encoding: 'utf8' }).trim();
-    if (p) candidates.push(p);
-  } catch { /* ignore */ }
-
-  // 2) nvm 目录下 22.x 的版本
-  const nvmDir = `${process.env.HOME}/.nvm/versions/node`;
-  if (existsSync(nvmDir)) {
-    try {
-      const { readdirSync } = require('node:fs');
-      readdirSync(nvmDir)
-        .filter((v) => /^v22\.(2[2-9]|[3-9]\d)/.test(v))   // 22.22+
-        .sort()
-        .reverse()
-        .forEach((v) => candidates.push(`${nvmDir}/${v}/bin/node`));
-    } catch { /* ignore */ }
-  }
-
-  for (const c of candidates) {
-    if (c && existsSync(c)) return c;
-  }
-  return 'node';
-}
+// 本机可用的 Node（必须 22.5+，项目依赖 node:sqlite）。
+// 如需换成其它版本，直接改这一行即可。
+const NODE = '/Users/tal/.nvm/versions/node/v22.16.0/bin/node';
 
 module.exports = {
   apps: [
@@ -48,7 +14,7 @@ module.exports = {
       script: 'server/index.js',
       cwd: __dirname,
 
-      interpreter: resolveNode(),
+      interpreter: NODE,
       node_args: '--no-warnings',
 
       env: {

@@ -36,9 +36,18 @@ sudo bash scripts/setup-pm2-startup.sh
 
 > 端口固定为 **7788**。选它是因为 5173 是 Vite 默认端口、3000 是 React/Next 默认端口，
 > 容易和本地其它前端项目撞车。改端口就改 `ecosystem.config.cjs` 里的 `PORT`。
->
-> `ecosystem.config.cjs` 会自动挑选可用的 node（项目依赖 `node:sqlite`，需 Node 22.5+）。
-> 如需固定某个版本，把里面的 `interpreter` 写死为绝对路径即可。
+
+### ⚠️ 关于 node 版本
+
+项目依赖 Node 内置的 `node:sqlite`，**需 Node 22.5+**。
+`ecosystem.config.cjs` 里的 `interpreter` 是写死的绝对路径，**换机器或换 node 版本时必须改**。
+
+```js
+const NODE = '/Users/tal/.nvm/versions/node/v22.16.0/bin/node';
+```
+
+注意：**v18.20.8 也装了 pm2，但它的 node 不支持 `node:sqlite`**，选错会起不来。
+详细排查与踩坑记录见 **[docs/部署与运维.md](docs/部署与运维.md)**。
 
 ### 方式二：直接运行
 
